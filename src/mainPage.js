@@ -1,24 +1,40 @@
+
+
 export class MainPage {
-    constructor(page) {
+    constructor(page, username) {
         this.page = page;
-        this.signupButton = page.getByRole('link', { name: 'Sign up' });
         this.profileButton = page.getByText(username);
-        this.settingsButton = page.getByRole('link', { name: 'Settings' });
-        this.settingsPasswordField = page.getByRole('textbox', { name: 'Password' });
-        this.settingsUpdateButton = page.getByRole('button', { name: 'Update Settings' });
+        this.signupLink = page.getByRole('link', {name: 'Sign up'});
+        this.loginLink = page.getByRole('link', {name: 'Login'});
+        this.homeLink = page.getByRole('link', {name: 'Home'});
+        this.settingsBtn = page.getByRole('link', {name: 'Settings'})
+        this.logoutLink = page.getByRole('link', {name: 'Logout'});
+        this.profileNameField = page.getByRole('navigation');
     }
+
     // todo
     async gotoRegister() {
-        await this.signupButton.click();
+        await this.signupLink.click();
+    }
+    async gotoLogin() {
+        await this.loginLink.click();
+    }
+
+    async logout() {
+        await this.profileButton.click();
+        await this.logoutLink.click();
+    }
+
+    async gotoSettings() {
+        await this.profileButton.click();
+        await this.profileNameField.click();
+        await this.settingsBtn.click();
+    }
+
+    async gotoHome() {
+        await this.homeLink.click();
     }
     async open(url) {
         await this.page.goto(url);
-    }
-    async editPassword() {
-        await this.profileButton.click();
-        await this.settingsButton.click();
-        await this.settingsPasswordField.click();
-        await this.settingsPasswordField.fill(newPassword);
-        await this.settingsUpdateButton.click();
     }
 }

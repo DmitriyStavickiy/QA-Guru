@@ -1,9 +1,7 @@
 import { faker } from '@faker-js/faker';
 
-export const ARTICLE_TITLE = faker.lorem.word(5);
-export const LOREM_LINES = faker.lorem.lines(1);
 
-export class YourfeedPage {
+export class ArticlePage {
     constructor(page) {
         this.page = page;
         this.newArticleButton = page.getByRole('link', { name: 'New Article' });
@@ -21,22 +19,22 @@ export class YourfeedPage {
     }
 
     // todo naming
-    async createArticle() {
+    async createArticle(articleTitle, articleDescription, articleBody) {
         await this.newArticleButton.click();
         await this.articleTitleField.click();
-        await this.articleTitleField.fill(ARTICLE_TITLE);
+        await this.articleTitleField.fill(articleBody);
         await this.articleDescriptionField.click();
-        await this.articleDescriptionField.fill('Test Description');
+        await this.articleDescriptionField.fill(articleDescription);
         await this.articleBodyField.click();
-        await this.articleBodyField.fill('Test Body');
+        await this.articleBodyField.fill(articleBody);
         await this.publishButton.click();
     }
 
-    async addComment() {
+    async addComment(articleBody) {
         await this.articleGlobalFeedButton.click();
         await this.previewLink.click();
         await this.articleCommentsField.click();
-        await this.articleCommentsField.fill(LOREM_LINES);
+        await this.articleCommentsField.fill(articleBody);
         await this.articleCommentsPublishButton.click();
     }
 }
