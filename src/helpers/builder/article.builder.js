@@ -7,15 +7,15 @@ export class ArticleBuilder {
     articleBody = '';
 
     addTitle() {
-        this.articleTitle = faker.lorem.word();
+        this.articleTitle = faker.lorem.word(3);
     }
 
     addDescription() {
-        this.articleDescription = faker.lorem.lines(1);
+        this.articleDescription = faker.lorem.word(3);
     }
 
     addBody() {
-        this.articleBody = faker.lorem.lines(1);
+        this.articleBody = faker.lorem.word(5);
     }
     generate() {
         this.addTitle();
@@ -23,4 +23,3 @@ export class ArticleBuilder {
         this.addBody();
     }
 }
-

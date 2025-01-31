@@ -1,11 +1,7 @@
-import { faker } from '@faker-js/faker';
-
-
 export class ArticlePage {
-    constructor(page) {
+    constructor(page, articleBody) {
         this.page = page;
-        this.newArticleButton = page.getByRole('link', { name: 'New Article' });
-        this.profileNameField = page.getByRole('navigation');
+        this.newArticleButton = page.getByRole('link', { name: 'New Article' })
         this.publishButton = page.getByRole('button', { name: 'Publish Article' });
         this.articleTitleField = page.getByRole('textbox', { name: 'Article Title' });
         this.articleDescriptionField = page.getByRole('textbox', { name: 'What\'s this article about?' });
@@ -14,6 +10,7 @@ export class ArticlePage {
         this.articleCommentsPublishButton = page.getByRole('button', { name: 'Post Comment' });
         this.articleGlobalFeedButton = page.getByRole('button', { name: 'Global Feed' });
         this.previewLink = page.locator('.preview-link').first();
+        this.checkCommentaryPublish = page.getByText(articleBody);
 
 
     }
@@ -22,7 +19,7 @@ export class ArticlePage {
     async createArticle(articleTitle, articleDescription, articleBody) {
         await this.newArticleButton.click();
         await this.articleTitleField.click();
-        await this.articleTitleField.fill(articleBody);
+        await this.articleTitleField.fill(articleTitle);
         await this.articleDescriptionField.click();
         await this.articleDescriptionField.fill(articleDescription);
         await this.articleBodyField.click();

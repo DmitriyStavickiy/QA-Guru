@@ -1,11 +1,7 @@
-import { test, expect } from '@playwright/test';
 import { faker } from '@faker-js/faker';
-import { MainPage } from '../src/mainPage';
-import { SignUpPage } from '../src/singUpPage';
-import { URL_UI } from '../src/url.const';
-import { SettingsPage } from "../src/settingsPage";
-import { LoginPage } from "../src/loginPage";
-import { UserBuilder } from "../src/helpers/builder/user.builder";
+import { test, expect } from '@playwright/test';
+import { MainPage, SettingsPage, SignUpPage, LoginPage, URL_UI } from "../src/pages/index";
+import { UserBuilder } from '../src/helpers/builder/index';
 
 const userBuilder = new UserBuilder();
 userBuilder.generate();

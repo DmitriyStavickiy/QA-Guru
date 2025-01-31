@@ -1,0 +1,1 @@
+//todo перенести компоненты в класс FeedPage из ArticlePage

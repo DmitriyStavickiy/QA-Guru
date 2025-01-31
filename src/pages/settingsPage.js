@@ -1,4 +1,4 @@
-import {UserBuilder} from "./helpers/builder/user.builder";
+import {UserBuilder} from "../helpers/builder/user.builder";
 
 
 export class SettingsPage {

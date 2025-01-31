@@ -1,31 +1,36 @@
 import { test, expect } from '@playwright/test';
-import { faker } from '@faker-js/faker';
-import { MainPage } from '../src/mainPage';
-import { ArticlePage } from '../src/articlePage';
-import { ARTICLE_TITLE, LOREM_LINES } from '../src/articlePage';
-import {URL_UI} from '../src/url.const';
-import {SignUpPage} from "../src/singUpPage";
-import {UserBuilder} from "../src/helpers/builder/user.builder";
+
+import { MainPage, ArticlePage, SignUpPage, URL_UI } from "../src/pages/index";
+import { UserBuilder, ArticleBuilder } from '../src/helpers/builder/index';
 
 const userBuilder = new UserBuilder();
 userBuilder.generate();
 
+const articleBuilder = new ArticleBuilder();
+articleBuilder.generate();
 
-test.describe('Создание статьи', () => {
+
+test.describe('Добавление комментария', () => {
   test.beforeEach(async ({page}) => {
     const mainPage = new MainPage(page, userBuilder.username);
     const singUpPage = new SignUpPage(page);
     await mainPage.open(URL_UI);
     await mainPage.gotoRegister();
-    await singUpPage.register(userBuilder.username, userBuilder.email, userBuilder.password);
+    await singUpPage.register(
+        userBuilder.username,
+        userBuilder.email,
+        userBuilder.password);
     await expect(mainPage.profileNameField).toBeVisible();
-    await expect(mainPage.profileNameField).toContainText(userBuilder.username);
+    await expect(mainPage.profileNameField).toContainText(
+        userBuilder.username);
   });
 
-  test('Пользователь может опублиуковать статью', async ({page}) => {
-    const articlePage = new ArticlePage(page);
-    await articlePage.createArticle();
-    await expect(page.getByRole('heading')).toContainText(ARTICLE_TITLE);
+  test('Пользователь может оставить комментарий', async ({page}) => {
+    const articlePage = new ArticlePage(page, articleBuilder.articleBody);
+    await articlePage.addComment(
+        articleBuilder.articleBody);
+    await expect(articlePage.checkCommentaryPublish).toContainText(
+        articleBuilder.articleBody);
   });
 
 });
