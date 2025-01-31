@@ -1,6 +1,3 @@
-import {UserBuilder} from "../helpers/builder/user.builder";
-
-
 export class SettingsPage {
     constructor(page) {
         this.page = page;
